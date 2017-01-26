@@ -2,7 +2,6 @@
 set -e
 
 # Prevent owner issues on mounted folders
-chown -R oracle:dba /u01/app/oracle
 rm -f /u01/app/oracle/product
 ln -s /u01/app/oracle-product /u01/app/oracle/product
 
@@ -16,8 +15,6 @@ case "$1" in
 		if [ "$(ls -A /u01/app/oracle/oradata)" ]; then
 			echo "found files in /u01/app/oracle/oradata Using them instead of initial database"
 			echo "XE:$ORACLE_HOME:N" >> /etc/oratab
-			chown oracle:dba /etc/oratab
-			chown 664 /etc/oratab
 			rm -rf /u01/app/oracle-product/12.1.0/xe/dbs
 			ln -s /u01/app/oracle/dbs /u01/app/oracle-product/12.1.0/xe/dbs
 			#Startup Database
